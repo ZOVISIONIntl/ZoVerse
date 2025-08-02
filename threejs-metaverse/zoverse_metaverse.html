@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZoVerse - The Masked Architect's Metaverse</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background: linear-gradient(45deg, #000033, #000066); }
+        #info { position: absolute; top: 10px; left: 10px; color: #fff; font-family: Arial; z-index: 100; }
+        #revenue { position: absolute; top: 10px; right: 10px; color: #0f0; font-family: Arial; z-index: 100; }
+        #controls { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 100; }
+        .btn { background: #0066ff; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background: #0088ff; }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h2>🔥 ZoVerse Metaverse 🔥</h2>
+        <p>The Masked Architect's Digital Empire</p>
+        <p>VR/AR Ready | Social Spaces | Revenue Generation</p>
+        <p>Users Online: <span id="users-online">0</span></p>
+    </div>
+    <div id="revenue">
+        <h3>💰 Live Revenue: $<span id="revenue-counter">0</span></h3>
+        <p>👥 Active Users: <span id="user-counter">0</span></p>
+        <p>🌍 Worlds Active: <span id="worlds-active">5</span></p>
+    </div>
+    <div id="controls">
+        <button class="btn" onclick="enterVR()">🥽 Enter VR</button>
+        <button class="btn" onclick="joinWorld('sovereignty')">🏛️ Sovereignty Academy</button>
+        <button class="btn" onclick="joinWorld('marketplace')">🛒 Digital Marketplace</button>
+        <button class="btn" onclick="startConsultation()">💼 Private Consultation</button>
+    </div>
+
+    <script>
+        // ZoVerse Metaverse Engine
+        let scene, camera, renderer, cube, revenue = 0, users = 0;
+
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000033);
+
+            // Create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Create renderer with WebXR support
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.xr.enabled = true;
+            document.body.appendChild(renderer.domElement);
+
+            // Create rotating empire cube
+            const geometry = new THREE.BoxGeometry(2, 2, 2);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x0066ff,
+                wireframe: true
+            });
+            cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            // Add empire lighting
+            const light = new THREE.PointLight(0xffffff, 1, 100);
+            light.position.set(10, 10, 10);
+            scene.add(light);
+
+            // Start revenue generation
+            setInterval(generateRevenue, 5000);
+            setInterval(updateUsers, 3000);
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotate the empire cube
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            
+            renderer.render(scene, camera);
+        }
+
+        function generateRevenue() {
+            const revenueIncrease = Math.floor(Math.random() * 500) + 100;
+            revenue += revenueIncrease;
+            document.getElementById('revenue-counter').textContent = revenue.toLocaleString();
+        }
+
+        function updateUsers() {
+            users = Math.floor(Math.random() * 200) + 50;
+            document.getElementById('user-counter').textContent = users;
+            document.getElementById('users-online').textContent = users;
+        }
+
+        function enterVR() {
+            if (renderer.xr.isPresenting) {
+                renderer.xr.getSession().end();
+            } else {
+                navigator.xr.requestSession('immersive-vr').then(session => {
+                    renderer.xr.setSession(session);
+                });
+            }
+        }
+
+        function joinWorld(worldType) {
+            alert(🌍 Joining  world! Revenue generated: UTF8{Math.floor(Math.random() * 333) + 111});
+            generateRevenue();
+        }
+
+        function startConsultation() {
+            alert('💼 Private consultation started! Premium service: ');
+            revenue += 333;
+            document.getElementById('revenue-counter').textContent = revenue.toLocaleString();
+        }
+
+        // Initialize the metaverse
+        init();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

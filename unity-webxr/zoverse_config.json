@@ -1,0 +1,26 @@
+{
+  "project_name": "ZoVerse_Metaverse",
+  "unity_version": "2022.3.LTS",
+  "webxr_enabled": true,
+  "platforms": ["WebGL", "VR", "AR"],
+  "features": {
+    "hand_tracking": true,
+    "eye_tracking": true,
+    "spatial_audio": true,
+    "multiplayer": true,
+    "avatar_system": true
+  },
+  "worlds": [
+    "Sovereignty_Academy",
+    "Cosmic_Law_Library", 
+    "Digital_Marketplace",
+    "Social_Gathering_Space",
+    "Private_Consultation_Rooms"
+  ],
+  "monetization": {
+    "world_access": 222,
+    "avatar_customization": 111,
+    "private_spaces": 333,
+    "premium_features": 555
+  }
+}
